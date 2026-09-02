@@ -1,0 +1,9 @@
+{
+  "name": "testlab-webhook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vercel function that receives Test-Lab webhook events and updates the GitHub commit status for CItesting",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
