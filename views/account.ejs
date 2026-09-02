@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<h1>My Account</h1>
+<p>Signed in as <%= user.name %> (<%= user.email %>)</p>
+
+<h2>Order History</h2>
+<% if (orders.length === 0) { %>
+  <p>No orders yet. <a href="/">Browse products</a>.</p>
+<% } else { %>
+  <table class="cart-table">
+    <thead><tr><th>Order</th><th>Date</th><th>Total</th><th>Status</th></tr></thead>
+    <tbody>
+      <% orders.forEach((order) => { %>
+        <tr>
+          <td><a href="/orders/<%= order.id %>">#<%= order.id %></a></td>
+          <td><%= order.created_at %></td>
+          <td><%= formatPrice(order.total_cents) %></td>
+          <td><%= order.status %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<%- include('partials/footer') %>

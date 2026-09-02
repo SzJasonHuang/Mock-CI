@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<section class="product-detail">
+  <div class="product-icon large icon-<%= product.icon %>"></div>
+  <div class="product-info">
+    <h1><%= product.name %></h1>
+    <p class="tagline"><%= product.tagline %></p>
+    <p class="description"><%= product.description %></p>
+    <p class="price large"><%= formatPrice(product.price_cents) %></p>
+    <p class="stock"><%= product.stock %> in stock</p>
+
+    <% if (added) { %>
+      <p class="flash-success">Added to cart.</p>
+    <% } %>
+
+    <form action="/cart/add/<%= product.id %>" method="POST" class="add-to-cart-form">
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= product.stock %>">
+      <button type="submit" class="button primary" <%= product.stock === 0 ? 'disabled' : '' %>>
+        <%= product.stock === 0 ? 'Out of stock' : 'Add to cart' %>
+      </button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

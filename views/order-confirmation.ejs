@@ -1,0 +1,24 @@
+<%- include('partials/header') %>
+
+<h1>Order Confirmed</h1>
+<p class="flash-success">Thanks! Order #<%= order.id %> is confirmed (demo — no real charge occurred).</p>
+
+<table class="cart-table">
+  <thead><tr><th>Product</th><th>Qty</th><th>Unit price</th></tr></thead>
+  <tbody>
+    <% items.forEach((item) => { %>
+      <tr>
+        <td><a href="/products/<%= item.slug %>"><%= item.name %></a></td>
+        <td><%= item.quantity %></td>
+        <td><%= formatPrice(item.unit_price_cents) %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<p class="cart-total">Total: <strong><%= formatPrice(order.total_cents) %></strong></p>
+<p>Status: <%= order.status %></p>
+
+<a class="button" href="/">Continue shopping</a>
+
+<%- include('partials/footer') %>

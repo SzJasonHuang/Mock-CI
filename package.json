@@ -1,0 +1,19 @@
+{
+  "name": "gasguard-demo-shop",
+  "version": "1.0.0",
+  "description": "Fake consumer site for gas detectors — demo storefront with auth and mock checkout. Not a real store.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node db/seed.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0"
+  }
+}

@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<h1>Your Cart</h1>
+
+<% if (items.length === 0) { %>
+  <p>Your cart is empty. <a href="/">Browse products</a>.</p>
+<% } else { %>
+  <table class="cart-table">
+    <thead>
+      <tr><th>Product</th><th>Qty</th><th>Subtotal</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% items.forEach((item) => { %>
+        <tr>
+          <td><a href="/products/<%= item.product.slug %>"><%= item.product.name %></a></td>
+          <td><%= item.quantity %></td>
+          <td><%= formatPrice(item.subtotalCents) %></td>
+          <td>
+            <form action="/cart/remove/<%= item.product.id %>" method="POST">
+              <button type="submit" class="link-button">Remove</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <p class="cart-total">Total: <strong><%= formatPrice(totalCents) %></strong></p>
+  <a class="button primary" href="/checkout">Proceed to checkout</a>
+<% } %>
+
+<%- include('partials/footer') %>

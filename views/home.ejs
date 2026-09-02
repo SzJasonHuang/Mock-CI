@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <h1>Gas detection equipment for home &amp; industrial use</h1>
+  <p>Browse our lineup of single-gas, multi-gas, and fixed-point detectors.</p>
+</section>
+
+<section class="product-grid">
+  <% products.forEach((p) => { %>
+    <a class="product-card" href="/products/<%= p.slug %>">
+      <div class="product-icon icon-<%= p.icon %>"></div>
+      <h3><%= p.name %></h3>
+      <p class="tagline"><%= p.tagline %></p>
+      <p class="price"><%= formatPrice(p.price_cents) %></p>
+    </a>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

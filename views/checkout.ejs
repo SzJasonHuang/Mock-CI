@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<h1>Checkout</h1>
+<p class="demo-note">This is a mock checkout. Enter any numbers — no real payment is processed and no card data is stored.</p>
+
+<section class="checkout-layout">
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <ul class="summary-list">
+      <% items.forEach((item) => { %>
+        <li><%= item.quantity %> × <%= item.product.name %> — <%= formatPrice(item.subtotalCents) %></li>
+      <% }) %>
+    </ul>
+    <p class="cart-total">Total: <strong><%= formatPrice(totalCents) %></strong></p>
+  </div>
+
+  <form action="/checkout" method="POST" class="payment-form">
+    <% if (error) { %>
+      <p class="flash-error"><%= error %></p>
+    <% } %>
+
+    <label for="cardNumber">Card number</label>
+    <input type="text" id="cardNumber" name="cardNumber" placeholder="4242 4242 4242 4242" required>
+
+    <div class="form-row">
+      <div>
+        <label for="expiry">Expiry (MM/YY)</label>
+        <input type="text" id="expiry" name="expiry" placeholder="12/29" required>
+      </div>
+      <div>
+        <label for="cvc">CVC</label>
+        <input type="text" id="cvc" name="cvc" placeholder="123" required>
+      </div>
+    </div>
+
+    <button type="submit" class="button primary">Place order (demo)</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

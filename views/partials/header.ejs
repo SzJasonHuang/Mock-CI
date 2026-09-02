@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= typeof title !== 'undefined' ? title + ' · GasGuard Demo' : 'GasGuard Demo Shop' %></title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="demo-banner">DEMO SITE — no real products are sold and no real payments are processed.</div>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/">GasGuard<span>Demo</span></a>
+      <nav class="main-nav">
+        <a href="/">Shop</a>
+        <a href="/cart">Cart</a>
+        <% if (user) { %>
+          <a href="/account">My Account</a>
+          <form action="/logout" method="POST" class="inline-form">
+            <button type="submit" class="link-button">Log out (<%= user.name %>)</button>
+          </form>
+        <% } else { %>
+          <a href="/login">Log in</a>
+          <a href="/register" class="nav-cta">Sign up</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
