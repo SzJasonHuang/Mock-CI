@@ -1,0 +1,25 @@
+name: Test-Lab Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Test-Lab Tests
+        run: |
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X POST https://test-lab.ai/api/v1/run \
+            -H "Authorization: Bearer ${{ secrets.TESTLAB_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"testPlanId": 2356, "buildId": "${{ github.sha }}"}')
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          BODY=$(echo "$RESPONSE" | sed '$d')
+          echo "$BODY"
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "Test-Lab run trigger failed with HTTP $HTTP_CODE"
+            exit 1
+          fi
