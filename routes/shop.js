@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../db');
 const { requireAuth } = require('../middleware/auth');
 
-
+const router = express.Router();
 
 function getCart(req) {
   if (!req.session.cart) req.session.cart = {};
