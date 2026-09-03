@@ -21,7 +21,15 @@ npm start
 
 Then open http://localhost:3000. The product catalog seeds itself automatically on first run.
 
+## Deploying to Vercel
+
+The app can be deployed as a Vercel serverless function (`api/index.js` wraps the Express app; see `vercel.json`). Since this is a demo, persistence is intentionally kept simple:
+
+- When `VERCEL` is set, the SQLite database runs **in-memory** instead of writing to disk (Vercel's filesystem is read-only). It reseeds itself on every cold start, so users/orders/cart contents don't survive across cold starts — that's expected for a demo, not a bug.
+- Sessions use the default in-memory `express-session` store, so logins may not persist reliably across concurrent serverless instances. Fine for a demo; not suitable for anything real.
+- Set a `SESSION_SECRET` environment variable in the Vercel project settings (falls back to an insecure default otherwise).
+
 ## Notes
 
-- Session secret and SQLite file live under `data/` (gitignored) and are regenerated locally; nothing here is meant to be deployed as-is.
+- For local dev, the session secret and SQLite file live under `data/` (gitignored) and are regenerated locally.
 - To re-seed/update the product catalog manually: `npm run seed`.

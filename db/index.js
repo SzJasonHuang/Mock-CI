@@ -2,11 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const { DatabaseSync } = require('node:sqlite');
 
-const dataDir = path.join(__dirname, '..', 'data');
-fs.mkdirSync(dataDir, { recursive: true });
+// On Vercel the filesystem is read-only (except /tmp, which doesn't persist
+// across invocations anyway), so there's no point writing a .db file there.
+// Use an in-memory database instead — it reseeds itself on every cold start.
+const isServerless = !!process.env.VERCEL;
 
-const db = new DatabaseSync(path.join(dataDir, 'shop.db'));
-db.exec('PRAGMA journal_mode = WAL');
+let db;
+if (isServerless) {
+  db = new DatabaseSync(':memory:');
+} else {
+  const dataDir = path.join(__dirname, '..', 'data');
+  fs.mkdirSync(dataDir, { recursive: true });
+  db = new DatabaseSync(path.join(dataDir, 'shop.db'));
+  db.exec('PRAGMA journal_mode = WAL');
+}
 
 db.transaction = (fn) => (...args) => {
   db.exec('BEGIN');

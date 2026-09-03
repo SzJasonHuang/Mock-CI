@@ -32,6 +32,10 @@ app.use('/', shopRoutes);
 
 app.use((_req, res) => res.status(404).render('404', { title: 'Not found' }));
 
-app.listen(PORT, () => {
-  console.log(`GasGuard demo shop running at http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`GasGuard demo shop running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
