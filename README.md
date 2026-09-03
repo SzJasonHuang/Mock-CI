@@ -1,6 +1,6 @@
 # GasGuard Demo Shop
 
-sss A fake consumer storefront for gas detectors, built for local testing. Not a real business - no real payments are processed and no real products are sold.
+A fake consumer storefront for gas detectors, built for local testing. Not a real business - no real payments are processed and no real products are sold.
 
 ## Features
 
