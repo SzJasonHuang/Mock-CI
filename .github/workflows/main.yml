@@ -1,0 +1,19 @@
+name: Test-Lab Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  smoke-tests-user-checkout:
+    name: Smoke Tests - User Checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Smoke Tests - User Checkout
+        run: |
+          curl -X POST https://test-lab.ai/api/v1/run \
+            -H "Authorization: Bearer ${{ secrets.TESTLAB_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"testPlanId": "2356", "buildId": "${{ github.sha }}"}'
