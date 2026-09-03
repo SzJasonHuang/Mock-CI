@@ -3,7 +3,7 @@ const crypto = require('crypto');
 // Vercel Node.js function: keep the raw body so the HMAC check is exact.
 module.exports.config = {
   api: {
-   
+    bodyParser: false,
   },
 };
 
